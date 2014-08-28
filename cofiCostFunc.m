@@ -11,7 +11,6 @@ X = reshape(params(1:num_movies*num_features), num_movies, num_features);
 Theta = reshape(params(num_movies*num_features+1:end), ...
                 num_users, num_features);
 
-            
 % You need to return the following values correctly
 J = 0;
 X_grad = zeros(size(X));
@@ -20,7 +19,7 @@ Theta_grad = zeros(size(Theta));
 % ====================== YOUR CODE HERE ======================
 % Instructions: Compute the cost function and gradient for collaborative
 %               filtering. Concretely, you should first implement the cost
-%               function (without regularization) and make sure it is
+%               function (without regularization) and make sure it
 %               matches our costs. After that, you should implement the 
 %               gradient and use the checkCostFunction routine to check
 %               that the gradient is correct. Finally, you should implement
@@ -39,22 +38,10 @@ Theta_grad = zeros(size(Theta));
 %        Theta_grad - num_users x num_features matrix, containing the 
 %                     partial derivatives w.r.t. to each element of Theta
 %
+predictions = X * Theta';
+SSE = ((predictions - Y).^2) .* R;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+J = 1/2 * sum(sum(SSE));
 % =============================================================
 
 grad = [X_grad(:); Theta_grad(:)];
