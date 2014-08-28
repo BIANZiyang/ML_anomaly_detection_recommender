@@ -39,11 +39,15 @@ Theta_grad = zeros(size(Theta));
 %                     partial derivatives w.r.t. to each element of Theta
 %
 predictions = X * Theta';
+
+% sum over all users j and movies i iff r(i,j) = 1 
+% multiply element wise by R matrix
 SSE = ((predictions - Y).^2) .* R;
 
 J = 1/2 * sum(sum(SSE));
+
+X_grad = (predictions - Y) .* R * Theta;
+Theta_grad = (predictions - Y)' .* R' * X;
 % =============================================================
-
 grad = [X_grad(:); Theta_grad(:)];
-
 end
